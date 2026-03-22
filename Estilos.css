@@ -1,0 +1,1415 @@
+/*Creado por : Gustavo Correia */
+
+
+/* Fuentes externas */
+
+@import url('https://fonts.cdnfonts.com/css/pokemon-solid');
+/* Fuente principal para títulos grandes */
+@import url('https://fonts.cdnfonts.com/css/pokemon-gb');
+/* Fuente para texto de UI y etiquetas */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Fuente alternativa/fallback */
+
+
+/* Estilos optimizados para barra de filtros compacta */
+
+#filtros {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 15px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+    /* Aumenté el margen inferior */
+    background: white;
+    border-radius: 15px;
+    border: 4px solid #2B2B2B;
+    box-shadow: 8px 8px 0 #2B2B2B, 12px 12px 0 #3B4CCA;
+}
+
+#filtros label {
+    white-space: nowrap;
+    font-size: 0.95em;
+    margin-right: 2px;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    color: #2B2B2B;
+    font-weight: bold;
+}
+
+#busqueda {
+    flex-grow: 1;
+    min-width: 150px;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    border: 4px solid #2B2B2B;
+    border-radius: 4px;
+    background: #F8F8F8;
+    box-shadow: 3px 3px 0 #2B2B2B;
+}
+
+#filtros select {
+    min-width: 140px;
+    padding: 8px 10px;
+    font-size: 0.9em;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    border: 4px solid #2B2B2B;
+    border-radius: 4px;
+    background: #F8F8F8;
+    box-shadow: 3px 3px 0 #2B2B2B;
+}
+
+.pokeball-icon-filter {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.contenedores {
+    margin-top: 30px;
+    /* Añadí margen superior a los contenedores */
+}
+
+@media (max-width: 768px) {
+    #filtros {
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        /* Margen menor en móviles */
+    }
+
+    #busqueda {
+        min-width: 100%;
+        order: 1;
+    }
+}
+
+
+/* Variables de colores Pokémon */
+
+:root {
+    /* Paleta de colores principal */
+    --pokemon-red: #FF0000;
+    --pokemon-blue: #3B4CCA;
+    --pokemon-yellow: #FFDE00;
+    --pokemon-dark: #2B2B2B;
+    --pokemon-light: #F8F8F8;
+    --pokemon-white: #FFFFFF;
+
+    /* Colores para cada tipo de Pokémon */
+
+    --type-normal: #A8A878;
+    --type-fire: #F08030;
+    --type-water: #6890F0;
+    --type-electric: #F8D030;
+    --type-grass: #78C850;
+    --type-ice: #98D8D8;
+    --type-fighting: #C03028;
+    --type-poison: #A040A0;
+    --type-ground: #E0C068;
+    --type-flying: #A890F0;
+    --type-psychic: #F85888;
+    --type-bug: #A8B820;
+    --type-rock: #B8A038;
+    --type-ghost: #705898;
+    --type-dragon: #7038F8;
+    --type-dark: #705848;
+    --type-steel: #B8B8D0;
+    --type-fairy: #EE99AC;
+
+    /* Variables para sombras y bordes */
+
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --border-thickness: 4px;
+
+    /* Variables para el modal */
+
+    --modal-background-color: var(--pokemon-light);
+    --modal-border-color: var(--pokemon-dark);
+    --pokemon-border-light: #ccc;
+    --pokemon-background-light: #eee;
+}
+
+/* Estilos generales del cuerpo */
+
+body {
+    background-color: #000000;
+    background-image: url('https://images5.alphacoders.com/410/410373.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--pokemon-light);
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /* Ocultar barra de desplazamiento */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE y Edge antiguo */
+}
+
+/* Ocultar barra para Chrome, Safari y Edge */
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+
+/* Sección de Filtros */
+
+#filtros {
+    background: var(--pokemon-white);
+    padding: 20px;
+    border-radius: 15px;
+    border: var(--border-thickness) solid var(--pokemon-dark);
+    box-shadow: 8px 8px 0 var(--pokemon-dark), 12px 12px 0 var(--pokemon-blue);
+    display: flex;
+    flex-wrap: wrap;
+    /* Cambiado a wrap para permitir que los elementos pasen a la siguiente línea en pantallas pequeñas */
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    /* Opcional: Para hacer que la barra de filtros sea tan ancha como su contenido en pantallas más grandes,
+       pero que aun así permita el ajuste en pantallas pequeñas. */
+    max-width: 100%;
+
+}
+
+#filtros label {
+    font-weight: bold;
+    color: var(--pokemon-dark);
+    font-size: 1.1em;
+    text-shadow: 1px 1px 0 var(--pokemon-white);
+    white-space: nowrap;
+    /* Evita que el texto de la etiqueta se envuelva */
+    display: flex;
+    /* Para alinear el icono y el texto */
+    align-items: center;
+    /* justify-content: center; /* Puedes quitar esto si prefieres que el label no se centre */
+}
+
+#filtros {
+    background: var(--pokemon-white);
+    padding: 20px;
+    border-radius: 15px;
+    border: var(--border-thickness) solid var(--pokemon-dark);
+    box-shadow: 8px 8px 0 var(--pokemon-dark), 12px 12px 0 var(--pokemon-red);
+    display: flex;
+    flex-wrap: nowrap;
+    /* Evitar el ajuste de línea en pantallas grandes */
+    gap: 15px;
+    /* Espaciado entre elementos */
+    align-items: center;
+    justify-content: center;
+    /* Centrar elementos horizontalmente */
+    position: relative;
+    z-index: 1;
+    min-width: fit-content;
+    /* Asegura que el contenedor en sí no se encoja demasiado */
+}
+
+
+/* Desactivar estilos específicos para el input de búsqueda que lo hacían expandirse */
+#busqueda {
+    /* ELIMINADO: flex-grow: 1; */
+    /* ELIMINADO: max-width: none; */
+    /* Puedes mantener un width diferente si lo quieres distinto a los select */
+    width: 250px;
+    /* Por ejemplo, un campo de búsqueda más ancho pero fijo */
+    max-width: 250px;
+    min-width: 180px;
+    flex-grow: 0;
+    /* Aseguramos que NO crezca */
+    flex-shrink: 0;
+    /* Aseguramos que NO se encoja */
+    margin-right: 5px;
+    font-size: 1em;
+    padding: 15px 15px;
+}
+
+
+
+
+#filtros input:focus,
+
+#filtros select:focus {
+    box-shadow: 4px 4px 0 var(--pokemon-red);
+    /* Sombra al enfocar */
+    border-color: var(--pokemon-red);
+}
+
+
+#filtros input,
+#filtros select {
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    padding: 15px 15px;
+    border: 4px solid var(--pokemon-dark);
+    border-radius: 4px;
+    background: var(--pokemon-light);
+    box-shadow: 3px 3px 0 var(--pokemon-dark);
+    transition: all 0.2s ease;
+    outline: none;
+    color: var(--pokemon-dark);
+    font-size: 0.9em;
+    width: auto;
+    /* Permitir que el contenido dicte el ancho, pero respetando el max-width */
+    max-width: 180px;
+    /* Establecer un ancho máximo para los cuadros de entrada/selección */
+    flex-grow: 0;
+    /* Evitar que crezca para llenar el espacio disponible */
+    flex-shrink: 1;
+    /* Permitir que se encoja si es necesario */
+    /* Añadir min-width para evitar que se encoja demasiado en pantallas pequeñas */
+    min-width: 120px;
+    /* Ajustar según sea necesario */
+}
+
+/* Desactivar estilos específicos para el input de búsqueda que lo hacían expandirse */
+#busqueda {
+    /* flex-grow: 0; flex-shrink: 0; */
+    /* Estos ya están configurados en la regla general de input/select */
+    width: 250px;
+    /* Por ejemplo, una búsqueda más ancha pero fija */
+    max-width: 250px;
+    min-width: 180px;
+    margin-right: 5px;
+    font-size: 1em;
+    padding: 15px 15px;
+}
+
+
+
+#filtros button {
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    padding: 10px 20px;
+    border: 3px solid var(--pokemon-dark);
+    border-radius: 8px;
+    background-color: var(--pokemon-dark);
+    color: var(--pokemon-dark);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--pokemon-dark);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+
+#filtros button:hover {
+    background-color: #686868;
+    transform: translateY(-2px);
+    /* Efecto levantar */
+    box-shadow: 5px 5px 0 var(--pokemon-dark);
+}
+
+#filtros button:active {
+    transform: translateY(0);
+    box-shadow: inset 2px 2px 5px var(--shadow-medium);
+    /* Efecto presionar */
+}
+
+/* Estilos para el icono de la Pokeball al lado de "POKEDEX" */
+
+.pokeball-icon-filter {
+
+    width: 50px;
+    /* Ajusta el tamaño de la imagen */
+    height: 50px;
+    /* Mismo tamaño para mantener proporciones */
+    vertical-align: text top;
+    /* Alinea la imagen verticalmente con el texto */
+    /* Considera si la imagen necesita 'image-rendering: pixelated;' si es un sprite,
+       pero para una SVG como esta, no suele ser necesario. */
+}
+
+
+/* Contenedores de Pokémon (Grid) */
+
+.contenedores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 50px;
+    padding: 30px 30px;
+}
+
+/* Estilo individual de la tarjeta de Pokémon */
+
+.contenedor {
+    text-align: center;
+    background: var(--pokemon-white);
+    border: var(--border-thickness) solid var(--pokemon-dark);
+    border-radius: 5px;
+    box-shadow: 5px 5px 0 var(--pokemon-dark), 12px 12px 0 var(--pokemon-white);
+    padding: 10px;
+    transition: all 0.3s ease-in-out, transform 0.2s ease-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 0 var(--pokemon-dark), 14px 14px 0 var(--pokemon-white), 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.contenedor:active {
+    transform: translateY(0);
+    box-shadow: 6px 6px 0 var(--pokemon-dark), 10px 10px 0 var(--pokemon-white), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Efecto de presionar */
+}
+
+/* Estilos para el nombre del Pokémon en la tarjeta */
+
+.contenedor h2 {
+    font-size: 1em;
+    color: var(--pokemon-dark);
+    text-transform: capitalize;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+}
+
+/* Estilos del sprite del Pokémon en la tarjeta */
+
+.contenedor img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    image-rendering: auto;
+    /* Optimizado para Artwork Oficial */
+    filter: drop-shadow(4px 4px 2px rgba(0, 0, 0, 0.4));
+}
+
+
+/* Tipos de Pokémon (etiquetas) */
+
+.tipo-pokemon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 1px;
+    margin: 2px;
+    border-radius: 25px;
+    font-size: 0.60em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    border: 2px solid var(--pokemon-dark);
+    box-shadow: 2px 2px 0 var(--pokemon-dark);
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s ease;
+}
+
+
+.tipo-pokemon:hover {
+    transform: translateY(-2px);
+}
+
+/* Colores para cada tipo de Pokémon */
+.tipo-pokemon[data-type="normal"] {
+    background: var(--type-normal);
+}
+
+.tipo-pokemon[data-type="fire"] {
+    background: var(--type-fire);
+}
+
+.tipo-pokemon[data-type="water"] {
+    background: var(--type-water);
+}
+
+.tipo-pokemon[data-type="electric"] {
+    background: var(--type-electric);
+    color: var(--pokemon-dark);
+    text-shadow: none;
+}
+
+.tipo-pokemon[data-type="grass"] {
+    background: var(--type-grass);
+}
+
+.tipo-pokemon[data-type="ice"] {
+    background: var(--type-ice);
+    color: var(--pokemon-dark);
+    text-shadow: none;
+}
+
+.tipo-pokemon[data-type="fighting"] {
+    background: var(--type-fighting);
+}
+
+.tipo-pokemon[data-type="poison"] {
+    background: var(--type-poison);
+}
+
+.tipo-pokemon[data-type="ground"] {
+    background: var(--type-ground);
+    color: var(--pokemon-dark);
+    text-shadow: none;
+}
+
+.tipo-pokemon[data-type="flying"] {
+    background: var(--type-flying);
+}
+
+.tipo-pokemon[data-type="psychic"] {
+    background: var(--type-psychic);
+}
+
+.tipo-pokemon[data-type="bug"] {
+    background: var(--type-bug);
+}
+
+.tipo-pokemon[data-type="rock"] {
+    background: var(--type-rock);
+}
+
+.tipo-pokemon[data-type="ghost"] {
+    background: var(--type-ghost);
+}
+
+.tipo-pokemon[data-type="dragon"] {
+    background: var(--type-dragon);
+}
+
+.tipo-pokemon[data-type="dark"] {
+    background: var(--type-dark);
+}
+
+.tipo-pokemon[data-type="steel"] {
+    background: var(--type-steel);
+    color: var(--pokemon-dark);
+    text-shadow: none;
+}
+
+.tipo-pokemon[data-type="fairy"] {
+    background: var(--type-fairy);
+}
+
+
+/* ID del Pokémon */
+.contenedor .pokemon-id {
+    background: var(--pokemon-red);
+    color: var(--pokemon-white);
+    border-radius: 8px;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85em;
+    font-weight: bold;
+    border: 3px solid var(--pokemon-dark);
+    box-shadow: 2px 2px 0 var(--pokemon-dark);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    transition: transform 0.2s ease;
+}
+
+
+.contenedor .pokemon-id:hover {
+    transform: scale(1.05);
+    /* Efecto de crecimiento sutil */
+}
+
+/* Paginación */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.pagination button {
+
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    padding: 10px 25px;
+    border: 3px solid var(--pokemon-dark);
+    border-radius: 10px;
+    background-color: var(--pokemon-yellow);
+    color: var(--pokemon-dark);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--pokemon-dark);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.pagination button:hover {
+    background-color: #e0c200;
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 var(--pokemon-dark);
+}
+
+.pagination button:active {
+    transform: translateY(0);
+    box-shadow: inset 2px 2px 5px var(--shadow-medium);
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    color: #666;
+    border-color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.7;
+}
+
+/* Diseño Responsivo - Desktop / Tablet */
+
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 3.5em;
+        letter-spacing: 4px;
+    }
+
+    #filtros {
+        padding: 18px;
+    }
+
+    .contenedores {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .contenedor {
+        padding: 18px 12px;
+    }
+
+    .contenedor img {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+
+/* Estilos específicos para la página de detalle del Pokémon */
+
+body.pokemon-detalle {
+
+    background-color: #000000;
+    padding: 20px;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    color: var(--pokemon-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+
+}
+
+.pokemon-detalle-container {
+    max-width: 500px;
+    background: var(--pokemon-white);
+    border: var(--border-thickness) solid var(--pokemon-dark);
+    border-radius: 20px;
+    box-shadow: 10px 10px 0 var(--pokemon-dark), 14px 14px 0 var(--pokemon-red);
+    padding: 30px 25px;
+    text-align: center;
+}
+
+.pokemon-detalle-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    image-rendering: auto;
+    /* Optimizado para Artwork Oficial */
+    filter: drop-shadow(6px 6px 4px rgba(0, 0, 0, 0.5));
+    border-radius: 15px;
+}
+
+.pokemon-detalle-container h1 {
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    color: var(--pokemon-red);
+    text-shadow: 4px 4px 0 var(--pokemon-dark), 6px 6px 0 var(--pokemon-red);
+    font-size: 3.5em;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    margin: 0;
+    -webkit-text-stroke: 1px var(--pokemon-white);
+}
+
+/* ID del Pokémon */
+
+.pokemon-id {
+
+    background: var(--pokemon-red);
+    color: var(--pokemon-white);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 3px solid var(--pokemon-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 0 var(--pokemon-dark);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    margin-top: -40px;
+    margin-bottom: 20px;
+
+}
+
+/* Contenedor de tipos de Pokémon en la página de detalle */
+
+.pokemon-tipos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Estilos para los tipos de Pokémon en la página de detalle (etiquetas más grandes) */
+
+.pokemon-detalle-container .tipo-pokemon {
+
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1em;
+    color: white;
+    border: 2px solid var(--pokemon-dark);
+    box-shadow: 2px 2px 0 var(--pokemon-dark);
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    transition: transform 0.15s ease;
+    cursor: default;
+
+}
+
+.pokemon-detalle-container .tipo-pokemon:hover {
+    transform: translateY(-3px);
+}
+
+/* Sección de información y estadísticas */
+
+.pokemon-info {
+    width: 100%;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    color: var(--pokemon-dark);
+    font-size: 1.1em;
+    line-height: 1.5;
+    padding: 0 15px;
+}
+
+.pokemon-info h3 {
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: bold;
+    color: var(--pokemon-red);
+    font-size: 1.3em;
+}
+
+/* Barras de estadísticas */
+
+.stat-bar {
+    background-color: var(--pokemon-light);
+    border: 2px solid var(--pokemon-dark);
+    border-radius: 12px;
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: inset 2px 2px 5px var(--shadow-light);
+}
+
+.stat-bar-fill {
+    height: 100%;
+    background-color: var(--pokemon-red);
+    border-radius: 12px 0 0 12px;
+    transition: width 0.3s ease;
+}
+
+/* Diseño Responsivo para la página de detalle */
+
+@media (max-width: 480px) {
+    body.pokemon-detalle {
+        padding: 15px;
+    }
+
+    .pokemon-detalle-container {
+        padding: 20px 15px;
+    }
+
+    .pokemon-detalle-container img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .pokemon-id {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+        margin-top: -30px;
+        margin-bottom: 15px;
+    }
+
+    .pokemon-info {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .pokemon-detalle-container .tipo-pokemon {
+        font-size: 0.85em;
+        padding: 6px 14px;
+    }
+}
+
+/* Estilos del Modal */
+
+/* Modal */
+
+.modal {
+    display: none;
+    /* Asegura que no sea visible al inicio */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    /* Vuelve a estar centrado */
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background: var(--pokemon-white);
+    border: var(--border-thickness) solid var(--pokemon-dark);
+    border-radius: 20px;
+    box-shadow: 12px 12px 0 var(--pokemon-dark), 18px 18px 0 var(--pokemon-red);
+    padding: 30px;
+    position: relative;
+    animation: fadeInScale 0.3s ease-out forwards;
+    width: fit-content;
+    min-width: 350px;
+    max-width: 550px;
+    height: auto;
+    max-height: 85vh;
+    /* Un poco más de margen arriba/abajo */
+    margin: auto;
+    text-align: center;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Ocultar barra de desplazamiento para navegadores Chrome, Safari y Edge */
+.modal-content::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Estilos para el estado de carga del modal */
+.modal-loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    /* Reducido para que sea compacto */
+    gap: 10px;
+}
+
+/* El contenedor se ajusta al mínimo absoluto mientras carga */
+.modal-content.loading {
+    padding: 5px !important;
+    width: min-content !important;
+    min-width: unset !important;
+    margin: auto;
+}
+
+.loading-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    /* Contenedor invisible por petición del usuario */
+}
+
+.loading-gif {
+    width: 100px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.loading-pokeball {
+    width: 30px;
+    height: 30px;
+    animation: spinPokeball 1s linear infinite;
+}
+
+@keyframes spinPokeball {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.modal-loading-content h2 {
+    color: var(--pokemon-dark);
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* Animación de entrada del modal */
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botón de cierre del modal */
+
+.close-button {
+    color: var(--pokemon-dark);
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+    z-index: 2;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--pokemon-red);
+}
+
+/* Encabezado del modal */
+
+.modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+}
+
+.modal-header h1 {
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    color: var(--pokemon-dark);
+    text-shadow: 4px 4px 0 var(--pokemon-dark), 6px 6px 0 var(--pokemon-red);
+    font-size: 3em;
+    letter-spacing: 3px;
+    margin: 10px 0;
+    -webkit-text-stroke: 1px var(--pokemon-white);
+    text-transform: capitalize;
+}
+
+/* Sprite del Pokémon en el modal */
+
+.modal-sprite {
+    width: 300px;
+    height: 200px;
+    object-fit: contain;
+    image-rendering: auto;
+    /* Mejor calidad de imagen */
+    margin-bottom: 15px;
+}
+
+/* ID del Pokémon en el modal (posición especial) */
+
+.pokemon-id-modal {
+
+    color: var(--pokemon-dark);
+    width: auto;
+    height: auto;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    z-index: 1;
+}
+
+/* Información del Pokémon dentro del modal */
+
+.pokemon-info-modal {
+    width: 100%;
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    color: var(--pokemon-dark);
+    font-size: 1em;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.pokemon-info-modal h3 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    color: var(--pokemon-red);
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.pokemon-info-modal ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.pokemon-info-modal li {
+    background: var(--pokemon-light);
+    border: 2px solid var(--pokemon-dark);
+    border-radius: 8px;
+    padding: 6px 12px;
+    box-shadow: 2px 2px 0 var(--pokemon-dark);
+    font-size: 0.9em;
+    text-transform: capitalize;
+}
+
+/* Tipos de Pokémon en el modal */
+
+.modal .pokemon-tipos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* Barras de estadísticas en el modal */
+
+.modal .stat-bar {
+    background-color: var(--pokemon-light);
+    border: 2px solid var(--pokemon-dark);
+    border-radius: 12px;
+    height: 25px;
+    width: calc(100% - 10px);
+    margin: 8px auto 15px auto;
+    overflow: hidden;
+    box-shadow: inset 3px 3px 6px var(--shadow-light);
+    position: relative;
+}
+
+.modal .stat-bar-fill {
+    height: 100%;
+    background-color: var(--pokemon-blue);
+    border-radius: 10px 0 0 10px;
+    transition: width 0.5s ease-out;
+}
+
+
+/* Etiquetas y valores de las barras de estadísticas */
+
+.stat-bar-label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: var(--pokemon-dark);
+    font-weight: bold;
+    font-size: 0.9em;
+    z-index: 1;
+}
+
+.stat-bar-value {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: var(--pokemon-white);
+    font-weight: bold;
+    font-size: 0.9em;
+    z-index: 1;
+}
+
+/* Botón para reproducir el grito del Pokémon */
+
+.play-cry-button {
+    font-family: 'Pokemon GB', 'Press Start 2P', cursive;
+    padding: 8px 18px;
+    border: 3px solid var(--pokemon-dark);
+    border-radius: 8px;
+    background-color: var(--pokemon-yellow);
+    color: var(--pokemon-dark);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--pokemon-dark);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.play-cry-button:hover {
+    background-color: var(--pokemon-red);
+    color: var(--pokemon-white);
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0 var(--pokemon-dark);
+}
+
+.play-cry-button:active {
+    transform: translateY(0);
+    box-shadow: inset 2px 2px 5px var(--shadow-medium);
+}
+
+/* Diseño Responsivo para el Modal */
+
+@media (max-width: 480px) {
+    .modal {
+        padding-right: 10px;
+        justify-content: center;
+    }
+
+    .modal-content {
+        padding: 15px;
+        box-shadow: 6px 6px 0 var(--pokemon-dark), 10px 10px 0 var(--pokemon-blue);
+    }
+
+    .modal-header h1 {
+        font-size: 2.5em;
+    }
+
+    .modal-sprite {
+        width: 150px;
+        height: 150px;
+    }
+
+    .pokemon-id-modal {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1em;
+        top: -15px;
+        left: -15px;
+    }
+
+    .pokemon-info-modal {
+        font-size: 0.9em;
+    }
+
+    .pokemon-info-modal h3 {
+        font-size: 1.1em;
+    }
+
+    .play-cry-button {
+        padding: 6px 15px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .modal-content {
+        padding: 15px;
+        box-shadow: 6px 6px 0 var(--pokemon-dark), 10px 10px 0 var(--pokemon-blue);
+    }
+
+    .modal-header h1 {
+        font-size: 2em;
+        letter-spacing: 2px;
+    }
+
+    .modal-sprite {
+        width: 120px;
+        height: 120px;
+    }
+
+    .pokemon-id-modal {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9em;
+        top: -10px;
+        left: -10px;
+    }
+
+    .pokemon-info-modal {
+        font-size: 0.85em;
+    }
+
+    .pokemon-info-modal h3 {
+        font-size: 1em;
+    }
+
+    .modal .stat-bar {
+        height: 20px;
+        margin: 5px auto 10px auto;
+    }
+
+    .play-cry-button {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+
+}
+
+
+/* Estilos para las secciones de debilidades/resistencias/inmunidades en el modal */
+
+.pokemon-weaknesses,
+.resistance-types,
+.immunity-types {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--pokemon-border-light);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: var(--pokemon-background-light);
+}
+
+.pokemon-weaknesses p,
+.resistance-types p,
+.immunity-types p {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--pokemon-dark);
+}
+
+/* Flexbox para organizar las insignias de tipo */
+
+.weakness-types,
+.resistance-types,
+.immunity-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    /* Espacio entre insignias */
+}
+
+/* Ajustes de contenido del modal para mejor legibilidad */
+
+.pokemon-info-modal h3 {
+    color: var(--pokemon-dark);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--pokemon-border-light);
+    padding-bottom: 5px;
+}
+
+
+.pokeball-icon-filter {
+
+    /* Estilos para el icono de la Pokeball al lado de "POKEDEX" */
+
+    cursor: pointer;
+    /* This is the new line */
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+/* --- Estilos para la Cadena de Evolución --- */
+
+.evolution-chain {
+    display: flex;
+    flex-direction: row;
+    /* Horizontal */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f0f0f0;
+    /* Color de fondo claro */
+    border: 4px solid var(--pokemon-dark);
+    border-radius: 20px;
+    box-shadow: 6px 6px 0 var(--pokemon-dark);
+}
+
+.evolution-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    max-width: 150px;
+}
+
+
+
+.evolution-stage p {
+    font-size: 0.75em;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+}
+
+.evolution-stage img {
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.1));
+}
+
+.evolution-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 100px;
+    gap: 5px;
+}
+
+.evolution-arrow p {
+    font-size: 0.6em;
+    color: var(--pokemon-dark);
+    line-height: 1.1;
+    max-width: 90px;
+}
+
+.evolution-arrow span {
+    font-size: 2.5em;
+    /* Flecha más grande */
+    font-weight: bold;
+    color: var(--pokemon-red);
+    text-shadow: 2px 2px 0 var(--pokemon-dark);
+}
+
+/* Diseño responsivo para móviles */
+@media (max-width: 600px) {
+    .evolution-chain {
+        flex-direction: column;
+        /* Cambia a vertical */
+        gap: 20px;
+    }
+
+    .evolution-arrow span {
+        transform: rotate(90deg);
+        /* Flecha apuntando hacia abajo */
+        font-size: 3em;
+        margin: 5px 0;
+    }
+
+    .evolution-arrow p {
+        font-size: 0.7em;
+    }
+}
+
+/* --- Botones de Navegación del Modal --- */
+
+.navigation-buttons {
+    position: absolute;
+    top: 50%;
+    /* Centrado vertical relativo al header */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.nav-button {
+    pointer-events: auto;
+    background-color: var(--pokemon-yellow);
+    color: var(--pokemon-dark);
+    border: 3px solid var(--pokemon-dark);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--pokemon-dark);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.nav-button:hover {
+    background-color: var(--pokemon-red);
+    color: var(--pokemon-white);
+    transform: scale(1.1);
+    box-shadow: 5px 5px 0 var(--pokemon-dark);
+}
+
+.nav-button:active {
+    transform: scale(0.9);
+    box-shadow: 1px 1px 0 var(--pokemon-dark);
+}
+
+
+
+@media (max-width: 480px) {
+    .nav-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5em;
+        margin: 0 5px;
+    }
+}
+
+/* --- Estilos para Error de Conexión --- */
+
+.error-conexion {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    background: var(--pokemon-white);
+    padding: 60px 40px;
+    border: var(--border-thickness) solid var(--pokemon-dark);
+    border-radius: 20px;
+    box-shadow: 10px 10px 0 var(--pokemon-dark), 15px 15px 0 var(--pokemon-red);
+    z-index: 9999;
+}
+
+.error-conexion h1 {
+    font-family: 'Pokemon Solid', sans-serif;
+    color: var(--pokemon-red);
+    font-size: 2em;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.error-conexion p {
+    color: var(--pokemon-dark);
+    font-size: 1em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Ocultar iconos de imagen rota */
+img:not([src]),
+img[src=""] {
+    visibility: hidden;
+}
+
+img {
+    /* Evitar el recuadro gris de imagen rota en navegadores basados en Webkit */
+    -webkit-user-drag: none;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pokedex</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg"
+        type="image/png">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/pokemon-gb" rel="stylesheet">
+    <link rel="stylesheet" href="Estilos.css">
+
+</head>
+
+<body>
+
+    <div id="filtros">
+        <label for="Pokedex">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball Icon"
+                class="pokeball-icon-filter" onclick="showCreatorInfo()">
+            POKEDEX
+        </label>
+        <input type="text" id="busqueda" placeholder="Buscar"
+            oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');">
+        <label for="generacion">Generacion:</label>
+        <select id="generacion">
+            <option value="all" selected>Todas</option>
+            <option value="1">Kanto</option>
+            <option value="2">Johto</option>
+            <option value="3">Hoenn</option>
+            <option value="4">Sinnoh</option>
+            <option value="5">Unova</option>
+            <option value="6">Kalos</option>
+            <option value="7">Alola</option>
+            <option value="8">Galar</option>
+            <option value="9">Paldea</option>
+        </select>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo">
+            <option value="all">Todos</option>
+        </select>
+    </div>
+
+    <div class="contenedores" id="contenedores"></div>
+    <div id="pagination-controls" class="pagination"></div>
+
+    <div id="pokemon-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-pokemon-details"></div>
+        </div>
+    </div>
+
+    <script src="PokeApi.js"></script>
+
+
+</body>
+
+</html>
