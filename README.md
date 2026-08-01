@@ -49,4 +49,4 @@ Desarrollado por **Gustavo Correia**.
 ├── JS/
 │   └── PokeApi.js            # Lógica de peticiones, filtros, paginación y modal
 └── HTML/
-    └── index.html            # Estructura principal de la aplicación
+    └── PokePag.html            # Estructura principal de la aplicación
