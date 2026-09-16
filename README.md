@@ -91,6 +91,54 @@ Pokedex/
 │   └── PokeEstilos.css       # Estilos generales, animaciones y diseño responsivo
 ├── JS/
 │   └── PokeApi.js            # Lógica de peticiones, filtros, paginación y modal
-└── HTML/
-    └── index.html            # Estructura principal de la aplicación
+├── HTML/
+│   └── PokePag.html          # Estructura principal de la aplicación
+├── screenshots/              # Capturas de pantalla de la interfaz para documentación
+│   ├── catalogo-principal.png
+│   ├── modal-detalle.png
+│   └── cadena-evolucion.png
+└── README.md                 # Documentación del proyecto
 ```
+
+---
+
+## 🚀 Instalación y Puesta en Marcha
+
+Al ser un proyecto de HTML, CSS y JavaScript puro (sin empaquetador), la puesta en marcha es inmediata:
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/Tavo172003/Pokedex.git
+cd Pokedex
+```
+
+### 2. Abrir en el navegador
+
+Simplemente abre el archivo `HTML/PokePag.html` directamente en tu navegador:
+
+```bash
+# En Windows
+start HTML/PokePag.html
+
+# En macOS / Linux
+open HTML/PokePag.html
+```
+
+> **Nota:** Se recomienda usar la extensión **Live Server** de VS Code para evitar posibles restricciones CORS al cargar recursos locales.
+
+### 3. Conexión a Internet requerida
+
+La aplicación consume la **PokeAPI** en tiempo real, por lo que requiere conexión activa a Internet para cargar los datos y sprites de los Pokémon.
+
+---
+
+## 📄 Licencia
+
+Distribuido bajo la Licencia MIT. Consulta el archivo `LICENSE` para más información.
+
+---
+
+<div align="center">
+  Desarrollado con ❤️ usando <b>HTML5</b>, <b>CSS3</b> y <b>JavaScript Vanilla</b>
+</div>
