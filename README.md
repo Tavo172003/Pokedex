@@ -17,7 +17,7 @@
 
 ## 📋 Descripción del Proyecto
 
-**Pokédex Interactiva** es una aplicación web dinámica que consume la API oficial de Pokémon (**PokeAPI**) para listar, buscar y filtrar información detallada de más de 1000 Pokémon, envuelta en una interfaz de usuario retro con estética *pixel-art* inspirada en los juegos clásicos de la franquicia.
+**Pokédex Interactiva** es una aplicación web dinámica que consume la API oficial de Pokémon (**PokeAPI**) para listar, buscar y filtrar información detallada de más de 1000 Pokémon, envuelta en una interfaz de usuario retro con estética _pixel-art_ inspirada en los juegos clásicos de la franquicia.
 
 La plataforma ofrece una experiencia inmersiva con filtrado en tiempo real, carga optimizada en bloques, cadenas de evolución generadas dinámicamente, estadísticas base con barras visuales, descripción oficial en español y reproducción de gritos reales de cada Pokémon.
 
@@ -72,14 +72,14 @@ Desarrollado por **Gustavo Correia**.
 
 ## 🛠️ Tecnologías Utilizadas
 
-| Categoría                    | Tecnología / Recurso                                                    | Propósito                                                                         |
-| :--------------------------- | :---------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
-| **Estructura**               | [HTML5](https://developer.mozilla.org/es/docs/Web/HTML)                 | Estructuración semántica del catálogo, filtros y modales                          |
-| **Estilos**                  | [CSS3 Avanzado](https://developer.mozilla.org/es/docs/Web/CSS)          | Diseño retro *pixel-art*, variables nativas CSS, animaciones y diseño responsivo  |
-| **Fuentes Retro**            | `Pokemon GB` / `Press Start 2P`                                         | Tipografías externas para la estética de los juegos clásicos                      |
-| **Lógica Principal**         | JavaScript ES6+ (Vanilla)                                               | `Fetch API`, `Async/Await`, `Promise.all`, DOM dinámico y arquitectura de eventos |
-| **Observer API**             | `MutationObserver`                                                      | Inyección correcta de estilos en nodos renderizados dinámicamente en tiempo real  |
-| **API de Datos**             | [PokeAPI](https://pokeapi.co/)                                          | Fuente oficial de estadísticas, sprites HD (Official Artwork) y metadatos        |
+| Categoría            | Tecnología / Recurso                                           | Propósito                                                                         |
+| :------------------- | :------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+| **Estructura**       | [HTML5](https://developer.mozilla.org/es/docs/Web/HTML)        | Estructuración semántica del catálogo, filtros y modales                          |
+| **Estilos**          | [CSS3 Avanzado](https://developer.mozilla.org/es/docs/Web/CSS) | Diseño retro _pixel-art_, variables nativas CSS, animaciones y diseño responsivo  |
+| **Fuentes Retro**    | `Pokemon GB` / `Press Start 2P`                                | Tipografías externas para la estética de los juegos clásicos                      |
+| **Lógica Principal** | JavaScript ES6+ (Vanilla)                                      | `Fetch API`, `Async/Await`, `Promise.all`, DOM dinámico y arquitectura de eventos |
+| **Observer API**     | `MutationObserver`                                             | Inyección correcta de estilos en nodos renderizados dinámicamente en tiempo real  |
+| **API de Datos**     | [PokeAPI](https://pokeapi.co/)                                 | Fuente oficial de estadísticas, sprites HD (Official Artwork) y metadatos         |
 
 ---
 
@@ -91,54 +91,6 @@ Pokedex/
 │   └── PokeEstilos.css       # Estilos generales, animaciones y diseño responsivo
 ├── JS/
 │   └── PokeApi.js            # Lógica de peticiones, filtros, paginación y modal
-├── HTML/
-│   └── PokePag.html          # Estructura principal de la aplicación
-├── screenshots/              # Capturas de pantalla de la interfaz para documentación
-│   ├── catalogo-principal.png
-│   ├── modal-detalle.png
-│   └── cadena-evolucion.png
-└── README.md                 # Documentación del proyecto
+└── HTML/
+    └── index.html            # Estructura principal de la aplicación
 ```
-
----
-
-## 🚀 Instalación y Puesta en Marcha
-
-Al ser un proyecto de HTML, CSS y JavaScript puro (sin empaquetador), la puesta en marcha es inmediata:
-
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/Tavo172003/Pokedex.git
-cd Pokedex
-```
-
-### 2. Abrir en el navegador
-
-Simplemente abre el archivo `HTML/PokePag.html` directamente en tu navegador:
-
-```bash
-# En Windows
-start HTML/PokePag.html
-
-# En macOS / Linux
-open HTML/PokePag.html
-```
-
-> **Nota:** Se recomienda usar la extensión **Live Server** de VS Code para evitar posibles restricciones CORS al cargar recursos locales.
-
-### 3. Conexión a Internet requerida
-
-La aplicación consume la **PokeAPI** en tiempo real, por lo que requiere conexión activa a Internet para cargar los datos y sprites de los Pokémon.
-
----
-
-## 📄 Licencia
-
-Distribuido bajo la Licencia MIT. Consulta el archivo `LICENSE` para más información.
-
----
-
-<div align="center">
-  Desarrollado con ❤️ usando <b>HTML5</b>, <b>CSS3</b> y <b>JavaScript Vanilla</b>
-</div>
