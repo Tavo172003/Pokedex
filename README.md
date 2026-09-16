@@ -1,52 +1,144 @@
-# 🎮 Pokédex Interactiva
+# 🔴 Pokédex Interactiva
 
-¡Bienvenido a la **Pokédex Interactiva**! Un proyecto web dinámico que consume la API oficial de Pokémon (**PokeAPI**) para listar, buscar y filtrar información detallada de más de 1000 Pokémon, envuelto en una interfaz de usuario retro inspirada en los juegos clásicos de la franquicia.
+<div align="center">
+
+![HTML5](https://img.shields.io/badge/HTML5-Semántico-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-Avanzado-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla_ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![PokeAPI](https://img.shields.io/badge/PokeAPI-Powered-EF5350?style=for-the-badge&logoColor=white)
+
+**Pokédex interactiva con catálogo dinámico, filtros por generación y tipo, modal de detalle completo con evoluciones, estadísticas y gritos de Pokémon.**
+
+[Ver Características](#-características-principales) · [Capturas](#️-capturas-de-pantalla) · [Tecnologías](#️-tecnologías-utilizadas) · [Instalación](#-instalación-y-puesta-en-marcha)
+
+</div>
+
+---
+
+## 📋 Descripción del Proyecto
+
+**Pokédex Interactiva** es una aplicación web dinámica que consume la API oficial de Pokémon (**PokeAPI**) para listar, buscar y filtrar información detallada de más de 1000 Pokémon, envuelta en una interfaz de usuario retro con estética *pixel-art* inspirada en los juegos clásicos de la franquicia.
+
+La plataforma ofrece una experiencia inmersiva con filtrado en tiempo real, carga optimizada en bloques, cadenas de evolución generadas dinámicamente, estadísticas base con barras visuales, descripción oficial en español y reproducción de gritos reales de cada Pokémon.
 
 Desarrollado por **Gustavo Correia**.
 
 ---
 
-## 🚀 Características Principales
+## 🖼️ Capturas de Pantalla
 
-*   **Carga Optimizada por Bloques (Chunks):** Maneja la descarga paralela de datos en bloques de 50 Pokémon para no saturar el navegador ni la API, garantizando una carga fluida y un rendimiento óptimo.
-*   **Filtros Avanzados:** 
-    *   Búsqueda en tiempo real por nombre o ID numérico (con sanitización de caracteres).
-    *   Filtrado selectivo por **Generación** (desde Kanto hasta Paldea, Gen 1 a Gen 9).
-    *   Filtrado por **Tipo** (Fuego, Agua, Planta, etc.) con traducción automática al español.
-*   **Modal de Detalles Completo:** Al hacer clic en cualquier Pokémon se despliega una ventana interactiva con:
-    *   Estadísticas base representadas con barras de progreso visuales.
-    *   Descripción oficial en español, altura, peso y habilidades.
-    *   **Cadena de Evolución Dinámica:** Genera de forma gráfica la línea evolutiva usando modelos en alta definición e indicando el método exacto (nivel, objetos, intercambio, felicidad, etc.).
-    *   **Zonas de Ubicación:** Muestra en qué áreas y versiones de los juegos se puede capturar dicho Pokémon.
-*   **Sistema de Audio Integrado:** Incluye un botón para reproducir el **grito real** del Pokémon directamente desde los archivos oficiales.
-*   **Navegación Fluida:** Botones de navegación interna (`<` y `>`) dentro del modal para explorar Pokémon adyacentes sin cerrar la ventana.
-*   **Resiliencia a Errores:** Pantalla de error personalizada en caso de que el usuario no disponga de conexión a Internet o la API se encuentre caída, permitiendo reintentar la carga de forma segura.
-*   **Diseño Totalmente Responsivo:** Interfaz adaptada minuciosamente para dispositivos móviles, tabletas y pantallas de escritorio mediante CSS Grid y Media Queries.
+### 1. Catálogo Principal
+
+> Exploración del catálogo completo con tarjetas retro, filtros por generación (Kanto a Paldea) y tipo, y buscador en tiempo real.
+
+![Catálogo Principal](screenshots/catalogo-principal.png)
+
+---
+
+### 2. Modal de Detalle — Información y Estadísticas
+
+> Ficha completa con tipos colorizados, descripción oficial en español, altura, peso, habilidades y estadísticas base con barras de progreso visuales. Incluye botón para reproducir el grito real del Pokémon.
+
+![Modal de Detalle](screenshots/modal-detalle.png)
+
+---
+
+### 3. Cadena de Evolución
+
+> Línea evolutiva generada gráficamente con sprites en alta definición, indicando el método exacto de evolución (nivel, objetos, intercambio, felicidad, etc.).
+
+![Cadena de Evolución](screenshots/cadena-evolucion.png)
+
+---
+
+## 🌟 Características Principales
+
+- **🔍 Búsqueda en Tiempo Real:** Filtrado instantáneo por nombre o ID numérico con sanitización de caracteres especiales.
+- **⚡ Filtros Avanzados Combinables:**
+  - **Por Generación:** Desde Kanto (Gen 1) hasta Paldea (Gen 9) con rangos de ID específicos por región.
+  - **Por Tipo:** Fuego, Agua, Planta, Eléctrico, Psíquico y más, con traducción automática al español.
+- **📦 Carga Optimizada por Bloques (Chunks):** Descarga paralela de datos en bloques de 50 Pokémon mediante `Promise.all`, garantizando fluidez sin saturar la API ni el navegador.
+- **🎴 Modal de Detalle Completo:** Al hacer clic en cualquier Pokémon se despliega una ventana interactiva con:
+  - Estadísticas base (HP, Ataque, Defensa, Ataque Especial, Defensa Especial y Velocidad) representadas con **barras de progreso visuales**.
+  - Descripción oficial en español, altura, peso y listado de habilidades (incluyendo ocultas).
+  - **Cadena de Evolución Dinámica:** Genera gráficamente la línea evolutiva con sprites HD indicando el método exacto (nivel, objeto, intercambio, felicidad, etc.).
+  - **Zonas de Ubicación:** Muestra en qué áreas y versiones de los juegos se puede capturar al Pokémon.
+- **🔊 Sistema de Audio Integrado:** Botón para reproducir el **grito real** del Pokémon directamente desde los archivos oficiales de PokeAPI.
+- **⬅️ ➡️ Navegación Fluida:** Botones de navegación interna dentro del modal para explorar Pokémon adyacentes sin necesidad de cerrarlo.
+- **🚨 Resiliencia a Errores:** Pantalla de error personalizada ante falta de conexión a Internet o caída de la API, con opción de reintentar la carga.
+- **📱 Diseño Totalmente Responsivo:** Interfaz adaptada minuciosamente para móviles, tabletas y escritorio mediante CSS Grid y Media Queries.
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-*   **HTML5:** Estructuración semántica del catálogo, filtros y estructuras modales.
-*   **CSS3 Avanzado:**
-    *   Diseño retro con estéticas *pixel-art* basadas en fuentes externas como `Pokemon GB` y `Press Start 2P`.
-    *   Uso de variables nativas CSS (`:root`) para la gestión dinámica de colores por tipo de Pokémon.
-    *   Efectos de elevación, transformaciones 3D sutiles en estados `:hover` y `:active`.
-    *   Animaciones personalizadas de carga (`spinPokeball`, `fadeInScale`).
-*   **JavaScript (Vanilla JS):**
-    *   Asincronía pura mediante `Fetch API`, `Async/Await` y `Promise.all` para operaciones concurrentes.
-    *   Manipulación dinámica del DOM y arquitectura orientada a eventos.
-    *   Uso de `MutationObserver` para garantizar la inyección correcta de estilos en nodos renderizados en tiempo de ejecución.
-*   **PokeAPI:** Fuente externa de datos de donde se extraen todas las estadísticas, sprites de alta calidad (Official Artwork) y metadatos.
+| Categoría                    | Tecnología / Recurso                                                    | Propósito                                                                         |
+| :--------------------------- | :---------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+| **Estructura**               | [HTML5](https://developer.mozilla.org/es/docs/Web/HTML)                 | Estructuración semántica del catálogo, filtros y modales                          |
+| **Estilos**                  | [CSS3 Avanzado](https://developer.mozilla.org/es/docs/Web/CSS)          | Diseño retro *pixel-art*, variables nativas CSS, animaciones y diseño responsivo  |
+| **Fuentes Retro**            | `Pokemon GB` / `Press Start 2P`                                         | Tipografías externas para la estética de los juegos clásicos                      |
+| **Lógica Principal**         | JavaScript ES6+ (Vanilla)                                               | `Fetch API`, `Async/Await`, `Promise.all`, DOM dinámico y arquitectura de eventos |
+| **Observer API**             | `MutationObserver`                                                      | Inyección correcta de estilos en nodos renderizados dinámicamente en tiempo real  |
+| **API de Datos**             | [PokeAPI](https://pokeapi.co/)                                          | Fuente oficial de estadísticas, sprites HD (Official Artwork) y metadatos        |
 
 ---
 
 ## 📂 Estructura del Proyecto
 
 ```text
+Pokedex/
 ├── CSS/
 │   └── PokeEstilos.css       # Estilos generales, animaciones y diseño responsivo
 ├── JS/
 │   └── PokeApi.js            # Lógica de peticiones, filtros, paginación y modal
-└── HTML/
-    └── index.html            # Estructura principal de la aplicación
+├── HTML/
+│   └── PokePag.html          # Estructura principal de la aplicación
+├── screenshots/              # Capturas de pantalla de la interfaz para documentación
+│   ├── catalogo-principal.png
+│   ├── modal-detalle.png
+│   └── cadena-evolucion.png
+└── README.md                 # Documentación del proyecto
+```
+
+---
+
+## 🚀 Instalación y Puesta en Marcha
+
+Al ser un proyecto de HTML, CSS y JavaScript puro (sin empaquetador), la puesta en marcha es inmediata:
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/Tavo172003/Pokedex.git
+cd Pokedex
+```
+
+### 2. Abrir en el navegador
+
+Simplemente abre el archivo `HTML/PokePag.html` directamente en tu navegador:
+
+```bash
+# En Windows
+start HTML/PokePag.html
+
+# En macOS / Linux
+open HTML/PokePag.html
+```
+
+> **Nota:** Se recomienda usar la extensión **Live Server** de VS Code para evitar posibles restricciones CORS al cargar recursos locales.
+
+### 3. Conexión a Internet requerida
+
+La aplicación consume la **PokeAPI** en tiempo real, por lo que requiere conexión activa a Internet para cargar los datos y sprites de los Pokémon.
+
+---
+
+## 📄 Licencia
+
+Distribuido bajo la Licencia MIT. Consulta el archivo `LICENSE` para más información.
+
+---
+
+<div align="center">
+  Desarrollado con ❤️ usando <b>HTML5</b>, <b>CSS3</b> y <b>JavaScript Vanilla</b>
+</div>
